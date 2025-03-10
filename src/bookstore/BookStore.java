@@ -1,19 +1,47 @@
 package bookstore;
-
+import java.util.Scanner;
 
 public class BookStore {
     private String name;
     private Book[] books;
 
+
     /**
      * Metoda se zepta uzivatele na informace k pozadovanemu poctu knih. A ty prida do pole knih.
      */
     public void addBoooks() {
-        int count = 0; //spravne cislo nacti od uzivatele, použij scanner
-        //books = new ....
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Kolik chceš přidat knih: ");
+        int count = sc.nextInt();
+        sc.nextLine();
+        books = new Book[count];
         for (int i=0; i<count; i++){
-            //nacti od uzivatele nazev, rok vydani, pocet stranek a zanr
-            //pridej knihu do pole knih
+            System.out.println(i+1+". Kniha");
+            System.out.println("Název:");
+            String nazev = sc.nextLine();
+            System.out.println("Rok vydání:");
+            int rok = sc.nextInt();
+            System.out.println("Počet stran:");
+            int pocet = sc.nextInt();
+            sc.nextLine();
+            System.out.println("Žánr: (roman, scifi, detektivka)");
+            String zanr1 = sc.nextLine();
+            System.out.println("");
+
+            Zanr zanr = null;
+            switch (zanr1) {
+                case "roman":
+                    zanr = Zanr.roman;
+                    break;
+                case "scifi":
+                    zanr = Zanr.scifi;
+                    break;
+                case "detektivka":
+                    zanr = Zanr.detektivka;
+                    break;
+            }
+
+            books[i] = new Book(nazev, rok, zanr ,pocet);
         }
 
     }
@@ -25,7 +53,32 @@ public class BookStore {
      */
     public void printInfo(){
         System.out.println("-----INFO O KNIHKUPECTVI-----");
-        //sem dopln kod
+
+        System.out.println(name+".");
+        System.out.print("Na sklade mame tyto knihy: ");
+        for (int i=0; i<books.length; i++){
+            Book book = books[i];
+            book.printInfo();
+            System.out.print(";");
+        }
+        System.out.println("");
         System.out.println("-----");
+    }
+
+    public BookStore(String name) {
+        this.name = name;
+    }
+
+
+    public void nejkratsiKniha(){
+        int min;
+        min = books[0].getDelka();
+        for (int i=0; i<books.length; i++){
+            if (books[i].getDelka()<min){
+                min = books[i].getDelka();
+            }
+        }
+        System.out.println("Počet stran nejkratší knihy je: "+min);
+
     }
 }

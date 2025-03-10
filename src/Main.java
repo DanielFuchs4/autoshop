@@ -30,9 +30,10 @@ public class Main {
                     carDatabase.printCarWithMostKms();
                     break;
                 case "2":
-                    BookStore knihkupectvi = new BookStore();
+                    BookStore knihkupectvi = new BookStore("Knihy Dobrovsky");
                     knihkupectvi.addBoooks();
                     knihkupectvi.printInfo();
+                    knihkupectvi.nejkratsiKniha();
                     break;
                 case "3":
                     Film film = new Film();
